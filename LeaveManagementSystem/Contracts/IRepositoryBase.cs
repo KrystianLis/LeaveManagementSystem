@@ -13,6 +13,8 @@ namespace LeaveManagementSystem.Contracts
 
         bool Create(T entity);
 
+        bool IsExists(int id);
+
         bool Update(T entity);
 
         bool Delete(T entity);
