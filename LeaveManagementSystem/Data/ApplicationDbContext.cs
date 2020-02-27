@@ -20,5 +20,7 @@ namespace LeaveManagementSystem.Data
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
 
         public DbSet<LeaveManagementSystem.Models.LeaveTypeViewModel> LeaveTypeViewModel { get; set; }
+
+        public DbSet<LeaveManagementSystem.Models.EmployeeViewModel> EmployeeViewModel { get; set; }
     }
 }

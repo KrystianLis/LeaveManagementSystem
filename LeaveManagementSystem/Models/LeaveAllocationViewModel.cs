@@ -11,8 +11,9 @@ namespace LeaveManagementSystem.Models
     {
         public int Id { get; set; }
 
-        [Required]
         public int NumberOfDays { get; set; }
+
+        public int Period { get; set; }
 
         public DateTime DateCreated { get; set; }
 
