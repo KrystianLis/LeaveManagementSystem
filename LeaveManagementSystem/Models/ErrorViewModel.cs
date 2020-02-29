@@ -1,5 +1,3 @@
-using System;
-
 namespace LeaveManagementSystem.Models
 {
     public class ErrorViewModel
