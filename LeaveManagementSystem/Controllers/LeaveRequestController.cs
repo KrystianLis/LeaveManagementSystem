@@ -5,6 +5,7 @@ using AutoMapper;
 using LeaveManagementSystem.Contracts;
 using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Models;
+using LeaveManagementSystem.Models.LeaveRequestViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,7 @@ namespace LeaveManagementSystem.Controllers
             var leaveRequestsModel = _mapper.Map<List<LeaveRequestViewModel>>(leaveRequests);
             var model = new AdminLeaveRequestsViewModel
             {
+                LeaveRequests = leaveRequestsModel,
                 TotalRequests = leaveRequestsModel.Count,
                 ApprovedRequests = leaveRequests.Count(x => x.Approved == true),
                 PendingRequests = leaveRequests.Count(x => x.Approved is null),
@@ -51,7 +53,50 @@ namespace LeaveManagementSystem.Controllers
         // GET: LeaveRequest/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var leaveRequest = _requestRepo.FindById(id);
+            var model = _mapper.Map<LeaveRequestViewModel>(leaveRequest);
+
+            return View(model);
+        }
+
+        public ActionResult ApproveRequest(int id)
+        {
+            try
+            {
+                var user = _userManager.GetUserAsync(User).Result;
+                var leaveRequest = _requestRepo.FindById(id);
+                leaveRequest.Approved = true;
+                leaveRequest.ApprovedById = user.Id;
+                leaveRequest.DateActioned = DateTime.Now;
+
+                var isSuccess = _requestRepo.Update(leaveRequest);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        public ActionResult RejectRequest(int id)
+        {
+            try
+            {
+                var user = _userManager.GetUserAsync(User).Result;
+                var leaveRequest = _requestRepo.FindById(id);
+                leaveRequest.Approved = false;
+                leaveRequest.ApprovedById = user.Id;
+                leaveRequest.DateActioned = DateTime.Now;
+
+                var isSuccess = _requestRepo.Update(leaveRequest);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // GET: LeaveRequest/Create
@@ -79,6 +124,9 @@ namespace LeaveManagementSystem.Controllers
         {
             try
             {
+                var startDate = DateTime.Parse(model.StartDate);
+                var endDate = DateTime.Parse(model.EndDate);
+
                 var leaveTypes = _leaveTypeRepo.FindAll();
                 var leaveTypeItems = leaveTypes.Select(x => new SelectListItem
                 {
@@ -94,7 +142,7 @@ namespace LeaveManagementSystem.Controllers
                     return View(model);
                 }
 
-                if(DateTime.Compare(model.StartDate, model.EndDate) > 1)
+                if(DateTime.Compare(startDate, endDate) > 1)
                 {
                     ModelState.AddModelError("", "Start date cannot be the future than the end date");
                     return View(model);
@@ -102,19 +150,19 @@ namespace LeaveManagementSystem.Controllers
 
                 var employee = _userManager.GetUserAsync(User).Result;
                 var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employee.Id, model.LeaveTypeId);
-                int daysRequested = (int)(model.EndDate.Date - model.StartDate.Date).TotalDays;
+                int daysRequested = (int)(endDate - startDate).TotalDays;
 
-                if(daysRequested > allocation.NumberOfDays)
-                {
-                    ModelState.AddModelError("", "Yout don't have sufficient days for this request");
-                    return View();
-                }
+                //if(daysRequested > allocation.NumberOfDays)
+                //{
+                //    ModelState.AddModelError("", "Yout don't have sufficient days for this request");
+                //    return View();
+                //}
 
                 var leaveRequestModel = new LeaveRequestViewModel
                 {
                     RequestingEmployeeId = employee.Id,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
+                    StartDate = startDate,
+                    EndDate = endDate,
                     Approved = null,
                     DateRequested = DateTime.Now,
                     DateActioned = DateTime.Now,
@@ -130,7 +178,7 @@ namespace LeaveManagementSystem.Controllers
                     return View();
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Home");
             }
             catch
             {

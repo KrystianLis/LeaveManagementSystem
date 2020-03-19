@@ -1,10 +1,10 @@
-﻿@model LeaveManagementSystem.Models.EditLeaveAllocationViewModel
+﻿@model LeaveManagementSystem.Models.LeaveAllocationViewModels.EditLeaveAllocationViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Editing @Model.LeaveType.Name Allocation for @Model.Employee.FirstName @Model.Employee.LastName</h1>
+<h2>Editing @Model.LeaveType.Name Allocation for @Model.Employee.FirstName @Model.Employee.LastName</h2>
 
 <hr />
 <div class="row">
@@ -26,6 +26,8 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">
+        <i class="fa fa-arrow-left"></i> Back to List
+    </a>
 </div>
 

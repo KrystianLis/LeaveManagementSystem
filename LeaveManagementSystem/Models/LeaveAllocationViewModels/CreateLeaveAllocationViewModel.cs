@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace LeaveManagementSystem.Models
+namespace LeaveManagementSystem.Models.LeaveAllocationViewModels
 {
     public class CreateLeaveAllocationViewModel
     {

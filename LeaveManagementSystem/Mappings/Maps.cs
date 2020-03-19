@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Models;
+using LeaveManagementSystem.Models.LeaveAllocationViewModels;
+using LeaveManagementSystem.Models.LeaveRequestViewModels;
 
 namespace LeaveManagementSystem.Mappings
 {

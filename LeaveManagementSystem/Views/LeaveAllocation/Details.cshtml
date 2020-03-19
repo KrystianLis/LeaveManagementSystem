@@ -1,10 +1,10 @@
-﻿@model LeaveManagementSystem.Models.ViewAllocationViewModel
+﻿@model LeaveManagementSystem.Models.LeaveAllocationViewModels.ViewAllocationViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details for - @Model.Employee.FirstName @Model.Employee.LastName</h1>
+<h2>Details for - @Model.Employee.FirstName @Model.Employee.LastName</h2>
 
 <div>
     <hr />
@@ -62,18 +62,24 @@
 
 <hr />
 
-<h2>Leave Allocations</h2>
+<h3>Leave Allocations</h3>
+<div>
     <div class="card" style="width: 18rem;">
-        <ul class="list-group list-group-flush">
-            @foreach (var item in Model.LeaveAllocation)
-            {
+    <ul class="list-group list-group-flush">
+        @foreach (var item in Model.LeaveAllocation)
+        {
             <li class="list-group-item">
-                <h6>@item.LeaveType.Name <span class="badge badge-secondary">@item.NumberOfDays</span> <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning"><i class="fa fa-pencil"></i> Edit</a></h6>
+                <h6>@item.LeaveType.Name <span class="badge badge-secondary">@item.NumberOfDays</span> <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning float-right"><i class="fa fa-pencil"></i> Edit</a></h6>
             </li>
-            }
-        </ul>
-    </div>
+        }
+    </ul>
+</div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+<div>
+    <a class="btn btn-outline-secondary mt-2 col-sm-3" asp-action="Index">
+        <i class="fa fa-arrow-left"></i> Back to List
+    </a>
+</div>
+</div>
+
+

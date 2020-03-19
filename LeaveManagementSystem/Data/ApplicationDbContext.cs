@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using LeaveManagementSystem.Models.LeaveRequestViewModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Data
@@ -20,6 +21,6 @@ namespace LeaveManagementSystem.Data
 
         public DbSet<LeaveManagementSystem.Models.LeaveTypeViewModel> LeaveTypeViewModel { get; set; }
 
-        public DbSet<LeaveManagementSystem.Models.LeaveRequestViewModel> LeaveRequestViewModel { get; set; }
+        public DbSet<LeaveRequestViewModel> LeaveRequestViewModel { get; set; }
     }
 }

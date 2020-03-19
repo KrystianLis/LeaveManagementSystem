@@ -3,17 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LeaveManagementSystem.Models
+namespace LeaveManagementSystem.Models.LeaveRequestViewModels
 {
     public class CreateLeaveRequestViewModel
     {
         [Display(Name = "Start date")]
         [Required]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [Display(Name = "End date")]
         [Required]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
 

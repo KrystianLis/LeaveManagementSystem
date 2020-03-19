@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LeaveManagementSystem.Models
+namespace LeaveManagementSystem.Models.LeaveAllocationViewModels
 {
     public class LeaveAllocationViewModel
     {

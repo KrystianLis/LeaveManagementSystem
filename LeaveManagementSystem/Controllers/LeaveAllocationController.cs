@@ -5,6 +5,7 @@ using AutoMapper;
 using LeaveManagementSystem.Contracts;
 using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Models;
+using LeaveManagementSystem.Models.LeaveAllocationViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

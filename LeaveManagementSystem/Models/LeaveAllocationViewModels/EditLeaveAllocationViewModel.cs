@@ -1,4 +1,6 @@
-﻿namespace LeaveManagementSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LeaveManagementSystem.Models.LeaveAllocationViewModels
 {
     public class EditLeaveAllocationViewModel
     {
@@ -8,6 +10,7 @@
 
         public string EmployeeId { get; set; }
 
+        [Display(Name = "Number of days")]
         public int NumberOfDays { get; set; }
 
         public LeaveTypeViewModel LeaveType { get; set; }

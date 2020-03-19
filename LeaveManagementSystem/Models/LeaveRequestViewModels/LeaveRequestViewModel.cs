@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace LeaveManagementSystem.Models
+namespace LeaveManagementSystem.Models.LeaveRequestViewModels
 {
     public class LeaveRequestViewModel
     {
@@ -13,9 +13,10 @@ namespace LeaveManagementSystem.Models
 
         public string RequestingEmployeeId { get; set; }
 
-        [Display(Name = "Start date")]
+
         [DataType(DataType.Date)]
         [Required]
+        [Display(Name = "Start date")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End date")]

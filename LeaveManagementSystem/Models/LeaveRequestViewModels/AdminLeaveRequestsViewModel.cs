@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LeaveManagementSystem.Models.LeaveRequestViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LeaveManagementSystem.Models
