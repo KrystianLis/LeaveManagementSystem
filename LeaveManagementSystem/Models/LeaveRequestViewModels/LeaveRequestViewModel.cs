@@ -13,7 +13,6 @@ namespace LeaveManagementSystem.Models.LeaveRequestViewModels
 
         public string RequestingEmployeeId { get; set; }
 
-
         [DataType(DataType.Date)]
         [Required]
         [Display(Name = "Start date")]

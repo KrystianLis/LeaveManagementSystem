@@ -5,6 +5,7 @@ using AutoMapper;
 using LeaveManagementSystem.Contracts;
 using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Models;
+using LeaveManagementSystem.Models.LeaveAllocationViewModels;
 using LeaveManagementSystem.Models.LeaveRequestViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -69,7 +70,15 @@ namespace LeaveManagementSystem.Controllers
                 leaveRequest.ApprovedById = user.Id;
                 leaveRequest.DateActioned = DateTime.Now;
 
-                var isSuccess = _requestRepo.Update(leaveRequest);
+                //var employeeId = leaveRequest.RequestingEmployeeId;
+                //var leaveTypeId = leaveRequest.LeaveTypeId;
+                //var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employeeId, leaveTypeId);
+                //int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
+                //allocation.NumberOfDays -= daysRequested;
+
+
+                _requestRepo.Update(leaveRequest);
+                //_leaveAllocationRepo.Update(allocation);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -89,7 +98,7 @@ namespace LeaveManagementSystem.Controllers
                 leaveRequest.ApprovedById = user.Id;
                 leaveRequest.DateActioned = DateTime.Now;
 
-                var isSuccess = _requestRepo.Update(leaveRequest);
+                _requestRepo.Update(leaveRequest);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -98,6 +107,43 @@ namespace LeaveManagementSystem.Controllers
                 return RedirectToAction(nameof(Index));
             }
         }
+
+        public ActionResult MyLeave()
+        {
+            var userId = _userManager.GetUserId(User);
+            var leaveRequests = _requestRepo.GetLeaveRequestsByEmployee(userId);
+            var allocations = _leaveAllocationRepo.GetLeaveAllocationsByEmployee(userId);
+            var leaveRequestsModel = _mapper.Map<List<LeaveRequestViewModel>>(leaveRequests);
+            var leaveAllocationsModel = _mapper.Map<List<LeaveAllocationViewModel>>(allocations);
+
+            var model = new MyLeaveRequestViewModel
+            {
+                LeaveAllocations = leaveAllocationsModel,
+                LeaveRequests = leaveRequestsModel
+            };
+
+            return View(model);
+        }
+
+        public ActionResult CancelRequest(int id)
+        {
+            var leaveType = _requestRepo.FindById(id);
+
+            if (leaveType is null)
+            {
+                return NotFound();
+            }
+
+            var isSuccess = _requestRepo.Delete(leaveType);
+
+            if (!isSuccess)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction("MyLeave");
+        }
+
 
         // GET: LeaveRequest/Create
         public ActionResult Create()
@@ -178,7 +224,7 @@ namespace LeaveManagementSystem.Controllers
                     return View();
                 }
 
-                return RedirectToAction(nameof(Index), "Home");
+                return RedirectToAction("MyLeave");
             }
             catch
             {
