@@ -38,8 +38,7 @@ namespace LeaveManagementSystem
                 {
                     Name = "Administrator"
                 };
-
-                var result = roleManager.CreateAsync(role).Result;
+                _ = roleManager.CreateAsync(role).Result;
             }
 
             if (!roleManager.RoleExistsAsync("Employee").Result)
@@ -48,8 +47,7 @@ namespace LeaveManagementSystem
                 {
                     Name = "Employee"
                 };
-
-                var result = roleManager.CreateAsync(role).Result;
+                _ = roleManager.CreateAsync(role).Result;
             }
         }
     }
