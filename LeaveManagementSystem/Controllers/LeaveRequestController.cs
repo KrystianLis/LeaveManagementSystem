@@ -188,7 +188,7 @@ namespace LeaveManagementSystem.Controllers
                     return View(model);
                 }
 
-                if(DateTime.Compare(startDate, endDate) > 1)
+                if(DateTime.Compare(startDate, endDate) > 0)
                 {
                     ModelState.AddModelError("", "Start date cannot be the future than the end date");
                     return View(model);
@@ -197,12 +197,6 @@ namespace LeaveManagementSystem.Controllers
                 var employee = _userManager.GetUserAsync(User).Result;
                 var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employee.Id, model.LeaveTypeId);
                 int daysRequested = (int)(endDate - startDate).TotalDays;
-
-                //if(daysRequested > allocation.NumberOfDays)
-                //{
-                //    ModelState.AddModelError("", "Yout don't have sufficient days for this request");
-                //    return View();
-                //}
 
                 var leaveRequestModel = new LeaveRequestViewModel
                 {
