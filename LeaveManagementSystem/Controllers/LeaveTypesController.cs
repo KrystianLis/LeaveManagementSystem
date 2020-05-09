@@ -146,34 +146,5 @@ namespace LeaveManagementSystem.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        //// POST: LeaveTypes/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete(int id, LeaveTypeViewModel model)
-        //{
-        //    try
-        //    {
-        //        var leaveType = _repo.FindById(id);
-
-        //        if (leaveType is null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        var isSuccess = _repo.Delete(leaveType);
-
-        //        if (!isSuccess)
-        //        {
-        //            return View(model);
-        //        }
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
     }
 }

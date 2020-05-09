@@ -70,15 +70,7 @@ namespace LeaveManagementSystem.Controllers
                 leaveRequest.ApprovedById = user.Id;
                 leaveRequest.DateActioned = DateTime.Now;
 
-                //var employeeId = leaveRequest.RequestingEmployeeId;
-                //var leaveTypeId = leaveRequest.LeaveTypeId;
-                //var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employeeId, leaveTypeId);
-                //int daysRequested = (int)(leaveRequest.EndDate - leaveRequest.StartDate).TotalDays;
-                //allocation.NumberOfDays -= daysRequested;
-
-
                 _requestRepo.Update(leaveRequest);
-                //_leaveAllocationRepo.Update(allocation);
 
                 return RedirectToAction(nameof(Index));
             }

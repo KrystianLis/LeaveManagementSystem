@@ -43,6 +43,8 @@ namespace LeaveManagementSystem.Controllers
             return View(model);
         }
 
+        // TODO: wyjebać to, nie ma sensu
+
         public ActionResult SetLeave(int id)
         {
             var leaveType = _typeRepo.FindById(id);
