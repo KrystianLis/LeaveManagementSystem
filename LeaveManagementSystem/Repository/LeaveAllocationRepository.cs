@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LeaveManagementSystem.Repository
 {
@@ -16,63 +17,66 @@ namespace LeaveManagementSystem.Repository
             _db = db;
         }
 
-        public bool CheckAllocation(int leaveTypeId, string employeeId)
+        public async Task<bool> CheckAllocation(int leaveTypeId, string employeeId)
         {
             var period = DateTime.Now.Year;
-            return FindAll().Where(x => x.Employee.Id == employeeId && x.LeaveType.Id == leaveTypeId && x.Period == period).Any();
+            var allocations = await FindAll();
+            return allocations.Where(x => x.Employee.Id == employeeId && x.LeaveType.Id == leaveTypeId && x.Period == period).Any();
         }
 
-        public bool Create(LeaveAllocation entity)
+        public async Task<bool> Create(LeaveAllocation entity)
         {
-            _db.LeaveAllocations.Add(entity);
-            return Save();
+            await _db.LeaveAllocations.AddAsync(entity);
+            return await Save();
         }
 
-        public bool Delete(LeaveAllocation entity)
+        public async Task<bool> Delete(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Remove(entity);
-            return Save();
+            return await Save();
         }
 
-        public ICollection<LeaveAllocation> FindAll()
+        public async Task<ICollection<LeaveAllocation>> FindAll()
         {
-            var LeaveAllocations = _db.LeaveAllocations.Include(x => x.LeaveType).Include(x => x.Employee).ToList();
+            var LeaveAllocations = await _db.LeaveAllocations.Include(x => x.LeaveType).Include(x => x.Employee).ToListAsync();
             return LeaveAllocations;
         }
 
-        public LeaveAllocation FindById(int id)
+        public async Task<LeaveAllocation> FindById(int id)
         {
-            var LeaveAllocation = _db.LeaveAllocations.Include(x => x.LeaveType).Include(x => x.Employee).FirstOrDefault(x => x.Id == id);
+            var LeaveAllocation = await _db.LeaveAllocations.Include(x => x.LeaveType).Include(x => x.Employee).FirstOrDefaultAsync(x => x.Id == id);
             return LeaveAllocation;
         }
 
-        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string employeeId)
+        public async Task<ICollection<LeaveAllocation>> GetLeaveAllocationsByEmployee(string employeeId)
         {
             var period = DateTime.Now.Year;
-            return FindAll().Where(x => x.EmployeeId == employeeId && x.Period == period).ToList();
+            var allocations = await FindAll();
+            return allocations.Where(x => x.EmployeeId == employeeId && x.Period == period).ToList();
         }
 
-        public LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string employeeId, int leaveTypeId)
+        public async Task<LeaveAllocation> GetLeaveAllocationsByEmployeeAndType(string employeeId, int leaveTypeId)
         {
             var period = DateTime.Now.Year;
-            return FindAll().FirstOrDefault(x => x.EmployeeId == employeeId && x.Period == period && x.LeaveTypeId == leaveTypeId);
+            var allocations = await FindAll();
+            return allocations.FirstOrDefault(x => x.EmployeeId == employeeId && x.Period == period && x.LeaveTypeId == leaveTypeId);
         }
 
-        public bool IsExists(int id)
+        public async Task<bool> IsExists(int id)
         {
-            return _db.LeaveTypes.Any(x => x.Id == id);
+            return await _db.LeaveTypes.AnyAsync(x => x.Id == id);
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
-            var changesCount = _db.SaveChanges();
+            var changesCount = await _db.SaveChangesAsync();
             return changesCount > 0;
         }
 
-        public bool Update(LeaveAllocation entity)
+        public async Task<bool> Update(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Update(entity);
-            return Save();
+            return await Save();
         }
     }
 }
