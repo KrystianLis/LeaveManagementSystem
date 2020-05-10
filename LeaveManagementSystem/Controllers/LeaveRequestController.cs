@@ -9,7 +9,6 @@ using LeaveManagementSystem.Models;
 using LeaveManagementSystem.Models.LeaveAllocationViewModels;
 using LeaveManagementSystem.Models.LeaveRequestViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -42,7 +41,10 @@ namespace LeaveManagementSystem.Controllers
             var leaveRequestsModel = _mapper.Map<List<LeaveRequestViewModel>>(leaveRequests);
             var model = new AdminLeaveRequestsViewModel
             {
-                LeaveRequests = leaveRequestsModel,
+                LeaveRequests = leaveRequestsModel.OrderBy(c => !c.Approved.HasValue)
+                                                    .ThenBy(c => c.Approved)
+                                                    .Reverse()
+                                                    .ToList(),
                 TotalRequests = leaveRequestsModel.Count,
                 ApprovedRequests = leaveRequests.Count(x => x.Approved == true),
                 PendingRequests = leaveRequests.Count(x => x.Approved is null),
