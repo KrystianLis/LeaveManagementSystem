@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using LeaveManagementSystem.Contracts;
 using LeaveManagementSystem.Repository;
 using AutoMapper;
-using LeaveManagementSystem.Mappings;
+using LeaveManagementSystem.Mapping;
 
 namespace LeaveManagementSystem
 {

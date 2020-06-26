@@ -4,7 +4,7 @@ using LeaveManagementSystem.Models;
 using LeaveManagementSystem.Models.LeaveAllocationViewModels;
 using LeaveManagementSystem.Models.LeaveRequestViewModels;
 
-namespace LeaveManagementSystem.Mappings
+namespace LeaveManagementSystem.Mapping
 {
     public class Maps : Profile
     {
