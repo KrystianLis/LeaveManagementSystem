@@ -1,11 +1,11 @@
-﻿using LeaveManagementSystem.Contracts;
-using LeaveManagementSystem.Data;
+﻿using BackEnd.Data;
+using BackEnd.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LeaveManagementSystem.Repository
+namespace BackEnd.Repository
 {
     public class LeaveTypeRepository : ILeaveTypeRepository
     {

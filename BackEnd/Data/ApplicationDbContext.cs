@@ -1,9 +1,7 @@
-﻿using LeaveManagementSystem.Models;
-using LeaveManagementSystem.Models.LeaveRequestViewModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeaveManagementSystem.Data
+namespace BackEnd.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -19,9 +17,5 @@ namespace LeaveManagementSystem.Data
         public DbSet<LeaveType> LeaveTypes { get; set; }
 
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-
-        public DbSet<LeaveTypeViewModel> LeaveTypeViewModel { get; set; }
-
-        public DbSet<LeaveRequestViewModel> LeaveRequestViewModel { get; set; }
     }
 }

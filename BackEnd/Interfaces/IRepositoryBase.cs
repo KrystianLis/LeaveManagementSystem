@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LeaveManagementSystem.Contracts
+namespace BackEnd.Interfaces
 {
     public interface IRepositoryBase<T> where T : class
     {

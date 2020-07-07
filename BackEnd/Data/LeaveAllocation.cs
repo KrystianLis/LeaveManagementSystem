@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LeaveManagementSystem.Data
+namespace BackEnd.Data
 {
     public class LeaveAllocation
     {

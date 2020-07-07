@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace LeaveManagementSystem.Data
+namespace BackEnd.Data
 {
     public class Employee : IdentityUser
     {

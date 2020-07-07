@@ -1,8 +1,8 @@
-﻿using LeaveManagementSystem.Data;
+﻿using BackEnd.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LeaveManagementSystem.Contracts
+namespace BackEnd.Interfaces
 {
     public interface ILeaveAllocationRepository : IRepositoryBase<LeaveAllocation>
     {
