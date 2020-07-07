@@ -38,6 +38,7 @@ namespace LeaveManagementSystem
                 {
                     Name = "Administrator"
                 };
+
                 _ = roleManager.CreateAsync(role).Result;
             }
 
@@ -47,6 +48,7 @@ namespace LeaveManagementSystem
                 {
                     Name = "Employee"
                 };
+
                 _ = roleManager.CreateAsync(role).Result;
             }
         }

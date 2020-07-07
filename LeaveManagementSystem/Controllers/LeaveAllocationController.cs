@@ -43,36 +43,6 @@ namespace LeaveManagementSystem.Controllers
             return View(model);
         }
 
-        // TODO: wyjebać to, nie ma sensu
-
-        public async Task<ActionResult> SetLeave(int id)
-        {
-            var leaveType = await _typeRepo.FindById(id);
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
-
-            foreach (var employee in employees)
-            {
-                if (await _allocationRepo.CheckAllocation(id, employee.Id))
-                {
-                    continue;
-                }
-
-                var allocation = new LeaveAllocationViewModel
-                {
-                        DateCreated = DateTime.Now,
-                        EmployeeId = employee.Id,
-                        LeaveTypeId = id,
-                        NumberOfDays = leaveType.DefaultDays,
-                        Period = DateTime.Now.Year
-                };
-
-                var leaveAllocation = _mapper.Map<LeaveAllocation>(allocation);
-                await _allocationRepo.Create(leaveAllocation);
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
-
         public async Task<ActionResult> ListEmployees()
         {
             var employees = await _userManager.GetUsersInRoleAsync("Employee");
