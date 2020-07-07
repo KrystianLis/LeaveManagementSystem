@@ -15,8 +15,6 @@ namespace LeaveManagementSystem.Models
         public string FirstName { get; set; }
         [Display(Name = "Last name")]
         public string LastName { get; set; }
-        [Display(Name = "Tax id")]
-        public string TaxId { get; set; }
         [Display(Name = "Date of birth")]
         public DateTime DateOfBirth { get; set; }
         [Display(Name = "Date joined")]
