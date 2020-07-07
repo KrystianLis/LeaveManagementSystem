@@ -6,9 +6,9 @@ using LeaveManagementSystem.Models.LeaveRequestViewModels;
 
 namespace LeaveManagementSystem.Mapping
 {
-    public class Maps : Profile
+    public class Map : Profile
     {
-        public Maps()
+        public Map()
         {
             CreateMap<LeaveType, LeaveTypeViewModel>().ReverseMap();
             CreateMap<LeaveRequest, LeaveRequestViewModel>().ReverseMap();

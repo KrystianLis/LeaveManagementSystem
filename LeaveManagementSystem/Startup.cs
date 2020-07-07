@@ -33,7 +33,7 @@ namespace LeaveManagementSystem
             services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
 
-            services.AddAutoMapper(typeof(Maps));
+            services.AddAutoMapper(typeof(Map));
 
             services.AddDefaultIdentity<Employee>()
                 .AddRoles<IdentityRole>()
